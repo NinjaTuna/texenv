@@ -1,0 +1,289 @@
+\NeedsTeXFormat{LaTeX2e}[2011/06/27]
+\ProvidesPackage{modern}[2015/02/22 Package for a modern looking document.]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%											IMPORTS												  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% XeLaTeX directive
+\RequirePackage[no-math]{fontspec}
+
+%% Typesetting
+% Color
+\RequirePackage[svgnames]{xcolor} % Additional options: x11names, rgb
+% Page backgrounds
+\RequirePackage[some]{background}
+% Spacing between lines
+\RequirePackage{setspace}
+% Text placement
+\RequirePackage[absolute]{textpos}
+% Multilingual support
+\RequirePackage[dutch,english]{babel}
+% Full page lay-out
+\RequirePackage{fullpage}
+% Flexible page lay-out
+\RequirePackage[margin=1in]{geometry}
+% URL support
+\RequirePackage{url}
+% Clickable hyperlinks
+\RequirePackage{hyperref}
+% Picture on title page
+\RequirePackage{titlepic}
+% SI Unit typesetting
+\RequirePackage{siunitx}
+% Modular TeX
+\RequirePackage{standalone}
+\RequirePackage{import}
+% Mathematics
+\RequirePackage{mathtools}
+% Typewriter text
+\RequirePackage{verbatim}
+% List improvements
+\RequirePackage{enumitem}
+% No paragraph indent
+\RequirePackage[parfill]{parskip}
+% Import Tikz figures
+\RequirePackage{tikz}
+\usetikzlibrary{shadows.blur,positioning,backgrounds,fit}
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=newest}
+\pgfplotsset{plot coordinates/math parser=false}
+
+% Bibliography
+\RequirePackage[backend=bibtexu,texencoding=utf8,bibencoding=utf8,style=ieee,sortlocale=en_GB,language=auto]{biblatex}
+\RequirePackage[strict,autostyle]{csquotes}
+
+% Include multiple PDF pages
+\RequirePackage[final]{pdfpages}
+
+% Operating system checking
+\RequirePackage{ifplatform}
+
+% Appendix improvements
+\RequirePackage[toc,title,titletoc]{appendix}
+
+%% Graphics (figures, tables, schematics, diagrams, etc)
+% Includegraphics
+\RequirePackage{graphicx}
+% Figure wrapping
+\RequirePackage{wrapfig}
+% Improve floating objects
+\RequirePackage{float}
+% Caption improvents
+\RequirePackage{caption}
+% Allow for subcaptions in subfigures
+\RequirePackage{subcaption}
+
+% TikZ
+\RequirePackage{tikz}
+% TikZ plots
+\RequirePackage{pgfplots}
+\pgfplotsset{compat=newest}
+% TikZ circuit schematics
+\RequirePackage[american]{circuitikz}
+% TikZ Bondgraph drawing
+\RequirePackage{bondgraph}
+
+% Table rows that span multiple columns and vice versa
+\RequirePackage{multicol}
+\RequirePackage{multirow}
+% Table improvents
+\RequirePackage{booktabs}
+
+% Source code inclusion
+\RequirePackage{listings}
+\newcommand{\includecode}[4][c]{\lstinputlisting[caption=#2, escapechar=, style=#1,label=#4]{#3}}
+\newcommand{\superscript}[1]{\ensuremath{^{\textrm{#1}}}}
+\newcommand{\subscript}[1]{\ensuremath{_{\textrm{#1}}}}
+
+% Fix for includepdf bug in Mac OS X
+\newcommand{\insertpdfpath}[1]{
+	\ifwindows
+	\newcommand{\insertpdf}[2]{\includepdf[pages=##1]{##2}}
+	\else
+	\newcommand{\insertpdf}[2]{\includepdf[pages=##1]{#1/##2}}
+	\fi
+}
+
+% Matrix and vector notation
+\newcommand{\mat}[1]{\mathbf{#1}}
+\let\vec\vecold
+\newcommand{\vec}[1]{\mathbf{\underline{#1}}}
+\newcommand{\tr}[1]{#1^{\text T}} % Transposed
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%											STYLE												  %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\setmainfont[Ligatures=TeX]{Myriad Pro}
+\setmonofont{Consolas}
+
+\RequirePackage{titlesec, color}
+\renewcommand{\familydefault}{\sfdefault} %set font family
+\renewcommand{\arraystretch}{1.2} %set table vertical spacing
+\setlength\parindent{0pt} %no paragraph indent
+\hypersetup{ %setup hyperlinks
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+%redesign chapter headings
+\definecolor{gray75}{gray}{0.75}
+\newcommand{\chapternumber}{\thechapter}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\chapternumber\hsp\textcolor{gray75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+%Redefine appendix headers
+\renewcommand{\appendixname}{Appendix}
+\renewcommand{\appendixtocname}{Appendices}
+\renewcommand{\appendixpagename}{Appendices}
+
+%Tikz definitions
+\definecolor{myblue}{RGB}{91,155,213}
+\definecolor{myblue2}{RGB}{156,195,229}
+
+\usetikzlibrary{shapes,arrows}
+\tikzstyle{rectangle} = [
+	rectangle,
+	draw=myblue,
+	fill=myblue,
+	text=white,
+    text width=8em,
+    text centered,
+    rounded corners,
+    minimum height=6em
+]
+\tikzstyle{rectangle} = [
+	draw=myblue,
+	fill=myblue,
+	text=white,
+    text width=8em,
+    text centered,
+    minimum height=6em
+]
+
+\tikzstyle{line} = [
+	draw=myblue,
+	text=myblue,
+	myblue,
+	>=triangle 90
+]
+
+%For code listings
+\definecolor{black}{rgb}{0,0,0}
+\definecolor{browntags}{rgb}{0.65,0.1,0.1}
+\definecolor{bluestrings}{rgb}{0,0,1}
+\definecolor{graycomments}{rgb}{0.4,0.4,0.4}
+\definecolor{redkeywords}{rgb}{1,0,0}
+\definecolor{bluekeywords}{rgb}{0.13,0.13,0.8}
+\definecolor{greencomments}{rgb}{0,0.5,0}
+\definecolor{redstrings}{rgb}{0.9,0,0}
+\definecolor{purpleidentifiers}{rgb}{0.01,0,0.01}
+
+\lstdefinestyle{csharp}{
+language=[Sharp]C,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+identifierstyle=\color{purpleidentifiers},
+basicstyle=\ttfamily\small}
+
+\lstdefinestyle{c}{
+language=C,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+identifierstyle=\color{purpleidentifiers},
+}
+
+\lstdefinestyle{matlab}{
+language=Matlab,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+identifierstyle=\color{purpleidentifiers}
+}
+
+\lstdefinestyle{vhdl}{
+language=VHDL,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{redstrings},
+identifierstyle=\color{purpleidentifiers}
+}
+
+\lstdefinestyle{xaml}{
+language=XML,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{redkeywords},
+stringstyle=\color{bluestrings},
+tagstyle=\color{browntags},
+morestring=[b]",
+  morecomment=[s]{<?}{?>},
+  morekeywords={xmlns,version,typex:AsyncRecords,x:Arguments,x:Boolean,x:Byte,x:Char,x:Class,x:ClassAttributes,x:ClassModifier,x:Code,x:ConnectionId,x:Decimal,x:Double,x:FactoryMethod,x:FieldModifier,x:Int16,x:Int32,x:Int64,x:Key,x:Members,x:Name,x:Object,x:Property,x:Shared,x:Single,x:String,x:Subclass,x:SynchronousMode,x:TimeSpan,x:TypeArguments,x:Uid,x:Uri,x:XData,Grid.Column,Grid.ColumnSpan,Click,ClipToBounds,Content,DropDownOpened,FontSize,Foreground,Header,Height,HorizontalAlignment,HorizontalContentAlignment,IsCancel,IsDefault,IsEnabled,IsSelected,Margin,MinHeight,MinWidth,Padding,SnapsToDevicePixels,Target,TextWrapping,Title,VerticalAlignment,VerticalContentAlignment,Width,WindowStartupLocation,Binding,Mode,OneWay,xmlns:x}
+}
+
+\lstdefinestyle{matlab}{
+language=Matlab,
+showspaces=false,
+showtabs=false,
+breaklines=true,
+showstringspaces=false,
+breakatwhitespace=true,
+escapeinside={(*@}{@*)},
+columns=fullflexible,
+commentstyle=\color{greencomments},
+keywordstyle=\color{bluekeywords}\bfseries,
+stringstyle=\color{purpleidentifiers},
+identifierstyle=\color{purpleidentifiers}
+}
+
+%defaults
+\lstset{
+basicstyle=\ttfamily\small,
+extendedchars=false,
+numbers=left,
+numberstyle=\ttfamily\tiny,
+stepnumber=1,
+tabsize=4,
+numbersep=5pt
+}
+
+\endinput

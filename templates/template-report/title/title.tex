@@ -1,0 +1,59 @@
+%!TEX program = xelatex
+
+\documentclass[11pt,titlepage]{report}
+\usepackage{modern}
+\addbibresource{../../library/bibliography.bib}
+
+\begin{document}
+\begin{titlepage}
+
+\definecolor{headercolor}{HTML}{6BB324}
+\definecolor{subheadercolor}{HTML}{DDDDDD}
+\backgroundsetup{
+	scale=1, angle=0, opacity=1,
+	contents={
+		\begin{tikzpicture}[remember picture,overlay]
+ 			\path [fill=headercolor] (-0.5\paperwidth,6) rectangle (0.5\paperwidth,9.5);
+ 			\path [fill=subheadercolor] (-0.5\paperwidth,4) rectangle (0.5\paperwidth,5.5);
+		\end{tikzpicture}
+	}
+} \BgThispage
+
+\newlength{\drop}
+
+\begingroup
+	\sffamily
+
+	\drop=0.11\textheight
+	\vspace*{\drop}
+	\begin{flushright}
+		{\fontsize{1.4cm}{1em} \selectfont \color{white} Project Renewable Energy} \\
+		\vspace*{56pt}
+		{\fontsize{0.8cm}{1em} \selectfont Design report}
+
+		\vfill
+
+		{\fontsize{0.5cm}{1em} \selectfont
+			\normalfont
+
+			\begin{tabular}{rr}
+				Eline van den Ende & 4158814 \\[0.5em]
+				Colin Fleuren & 4144732 \\[0.5em]
+				Robin Hes & 4236815 \\[0.5em]
+				Lennart Kleibergen & 4241894 \\[1.5em]
+				\multicolumn{2}{r}{\today} \\
+			\end{tabular}
+		}
+	\end{flushright}
+\endgroup
+
+% \begin{textblock}{16.1}(0,6)
+% 	\includegraphics[width=\linewidth]{resource/title.png}
+% \end{textblock}
+
+% \begin{textblock}{16.1}(2.5,6.75)
+% 	\includegraphics[width=0.3\linewidth]{resource/solar-panel.pdf}
+% \end{textblock}
+
+\end{titlepage}
+\end{document}
